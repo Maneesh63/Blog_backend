@@ -15,10 +15,10 @@ class BlogCreateView(APIView):
     def post(self, request):
         data = request.data
         try:
-            blog =  BlogHandler.create_blog(data)
+            blog, image_url =  BlogHandler.create_blog(data)
         except Exception as e:
             return Response({'message': 'An error occurred while creating the post', 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response({'message': 'Post created successfully', 'blog_id': blog}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Post created successfully', 'blog_id': blog, 'image_url': image_url}, status=status.HTTP_201_CREATED)
 
     def patch(self, request, post_id):
         data = request.data
@@ -46,13 +46,13 @@ class BlogCreateView(APIView):
             return Response({"message": "An error occurred while fetching posts","error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-    # def delete(self, request, post_id):
-    #     try:
-    #         blog = Blogs.objects.get(blog_id=post_id)
-    #         blog = BlogHandler.delete_post(post_id)
-             
-    #         return Response({"message": "Post deleted successfully"}, status=status.HTTP_200_OK)
-    #     except Blogs.DoesNotExist:
-    #         return Response({"message": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
-    #     except Exception as e:
-    #         return Response({"message": "An error occurred while deleting the post", "error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    def delete(self, request, post_id):
+        try:
+            blog = Blogs.objects.get(blog_id=post_id)
+            blog = BlogHandler.delete_post(post_id)
+            
+            return Response({"message": "Post deleted successfully"}, status=status.HTTP_200_OK)
+        except Blogs.DoesNotExist:
+            return Response({"message": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"message": "An error occurred while deleting the post", "error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
