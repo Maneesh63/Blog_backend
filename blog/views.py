@@ -32,9 +32,12 @@ class BlogCreateView(APIView):
         
         return Response({'message': 'Post updated successfully', 'blog_id': blog.blog_id, 'title': blog.title}, status=status.HTTP_200_OK)
 
-    def get(self, request):
+    def get(self, request, post_id=None):
         try:
-            post_id = request.query_params.get("post_id")
+            print("Request query params:", request.query_params)
+            print("Request post_id:", post_id)
+            if post_id is None:
+                post_id = request.query_params.get("post_id")
             blogs = BlogHandler.get_posts(post_id)
     
             if blogs is None:

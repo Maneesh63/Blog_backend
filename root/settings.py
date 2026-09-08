@@ -150,3 +150,17 @@ SUPABASE_S3_STORAGE = create_client(
     supabase_url="https://fuomgphbxjfonbevlgam.storage.supabase.co",
     supabase_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1b21ncGhieGpmb25iZXZsZ2FtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4ODE4MjgyMCwiZXhwIjoyMTAzNzU4ODIwfQ.hf6sbKvLHClLZt8HaIMCkrFjC06o7aKiepLwS0PmX0o"
 )
+
+GOOGLE_CLIENT_ID="1009719151705-4lkofnj92l99o1a3esoo9e8th5m6p5t8.apps.googleusercontent.com"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "USER_ID_FIELD": "user_id",
+    "USER_ID_CLAIM": "user_id",
+}
