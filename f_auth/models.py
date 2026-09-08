@@ -5,7 +5,7 @@ from blog.models import Datetime
 class User(Datetime):
     user_id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, blank=True, null=True)
 
      
     def __str__(self):

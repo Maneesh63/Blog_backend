@@ -11,6 +11,7 @@ class BlogHandler:
         content = data.get("content")
         image = data.get("image")
         category_id = data.get("category_id")
+        description = data.get("description")
 
         try:
             category = Category.objects.get(category_id=category_id)
@@ -38,7 +39,8 @@ class BlogHandler:
             title=title,
             content=content,
             image_url=public_url,
-            category=category
+            category=category,
+            description=description
         )
 
         return blog.blog_id, public_url
@@ -51,6 +53,7 @@ class BlogHandler:
             blog.content = data.get('content', blog.content)
             blog.image_url = data.get('image_url', blog.image_url)
             blog.image = data.get('image', blog.image)
+            blog.description = data.get('description', blog.description)
             category_id = data.get('category_id')
             if category_id:
                 category = Category.objects.get(category_id=category_id)
@@ -73,7 +76,9 @@ class BlogHandler:
                     "image": blog.image.url if blog.image else None,
                     "image_url": blog.image_url,
                     "date_created": blog.created_at,
-                    "category": blog.category.name if blog.category else None,
+                    "category": blog.category.category_id if blog.category else None,
+                    "category_name": blog.category.name if blog.category else None,
+                    "description": blog.description,
                 }
     
             blogs = Blogs.objects.all()
@@ -86,7 +91,9 @@ class BlogHandler:
                     "image": blog.image.url if blog.image else None,
                     "image_url": blog.image_url,
                     "date_created": blog.created_at,
-                    "category": blog.category.name if blog.category else None,
+                    "category": blog.category.category_id if blog.category else None,
+                    "category_name": blog.category.name if blog.category else None,
+                    "description": blog.description,
                 }
                 for blog in blogs
             ]
