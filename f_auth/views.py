@@ -56,11 +56,8 @@ class GoogleLoginView(APIView):
 
             return Response({
                 "message": "Google login successful",
-
                 "access": str(refresh.access_token),
-
                 "refresh": str(refresh),
-
                 "user": {
                     "user_id": user.user_id,
                     "email": user.email,

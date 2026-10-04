@@ -6,12 +6,21 @@ from rest_framework import status
 from blog.models import Blogs, Category
 from blog.serializers import CategorySerializer
 from blog.handlers import BlogHandler
-
+from rest_framework.permissions import AllowAny, IsAuthenticated
 class CategorViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer   
 
 class BlogCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            print("GET request received, allowing any user to access this view.")
+            return [AllowAny()]
+
+        return [IsAuthenticated()]
+    
     def post(self, request):
         data = request.data
         try:
